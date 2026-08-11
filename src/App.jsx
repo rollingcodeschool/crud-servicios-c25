@@ -7,8 +7,18 @@ import Error404 from "./components/pages/Error404";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Login from "./components/pages/Login";
 import FormularioServicio from "./components/pages/FormularioServicio";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
+  const usuarioSessionStorage = JSON.parse(sessionStorage.getItem('usuarioKey')) || false
+  const [usuarioLogueado, setUsuarioLogueado] = useState(usuarioSessionStorage)
+
+  useEffect(()=>{
+    sessionStorage.setItem('usuarioKey', JSON.stringify(usuarioLogueado) )
+  },[usuarioLogueado])
+
+
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
