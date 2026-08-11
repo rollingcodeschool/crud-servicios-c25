@@ -9,8 +9,15 @@ const Login = ({ setUsuarioLogueado }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+    const onSubmit = (data) => {
     console.log(data);
+    console.log(import.meta.env.VITE_PASSWORD);
+    console.log(import.meta.env.VITE_EMAIL);
+    if(data.email === import.meta.env.VITE_EMAIL && data.password === import.meta.env.VITE_PASSWORD ){
+      console.log('aqui debo iniciar sesion')
+    }else{
+       console.log('error en las credenciales')
+    }
   };
 
   return (

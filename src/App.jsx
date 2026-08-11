@@ -9,34 +9,49 @@ import Login from "./components/pages/Login";
 import FormularioServicio from "./components/pages/FormularioServicio";
 import { useState } from "react";
 import { useEffect } from "react";
+import { AppContext } from "./context/AppContext";
 
 function App() {
-  const usuarioSessionStorage = JSON.parse(sessionStorage.getItem('usuarioKey')) || false
-  const [usuarioLogueado, setUsuarioLogueado] = useState(usuarioSessionStorage)
+  const usuarioSessionStorage =
+    JSON.parse(sessionStorage.getItem("usuarioKey")) || false;
+  const [usuarioLogueado, setUsuarioLogueado] = useState(usuarioSessionStorage);
 
-  useEffect(()=>{
-    sessionStorage.setItem('usuarioKey', JSON.stringify(usuarioLogueado) )
-  },[usuarioLogueado])
-
+  useEffect(() => {
+    sessionStorage.setItem("usuarioKey", JSON.stringify(usuarioLogueado));
+  }, [usuarioLogueado]);
 
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
-        <Menu></Menu>
-        <main className="grow container mx-auto my-4 px-4 py-8">
-          <Routes>
-            <Route path="/" element={<Inicio></Inicio>}></Route>
-            <Route path="/login" element={<Login></Login>}></Route>
-            <Route path="/detalle-servicio" element={<DetalleServicio></DetalleServicio>}></Route>
-            <Route path="/administrador" element={<Administrador></Administrador>}></Route>
-            <Route path="/administrador/crear" element={<FormularioServicio titulo='Crear servicio'/>}></Route>
-            <Route path="/administrador/editar" element={<FormularioServicio titulo='Editar servicio'/>}></Route>
-            <Route path="*" element={<Error404></Error404>}></Route>
-          </Routes>
-        </main>
-        <Footer></Footer>
-      </div>
-    </BrowserRouter>
+    <AppContext.Provider value={{ usuarioLogueado, setUsuarioLogueado }}>
+      <BrowserRouter>
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+          <Menu></Menu>
+          <main className="grow container mx-auto my-4 px-4 py-8">
+            <Routes>
+              <Route path="/" element={<Inicio></Inicio>}></Route>
+              <Route path="/login" element={<Login></Login>}></Route>
+              <Route
+                path="/detalle-servicio"
+                element={<DetalleServicio></DetalleServicio>}
+              ></Route>
+              <Route
+                path="/administrador"
+                element={<Administrador></Administrador>}
+              ></Route>
+              <Route
+                path="/administrador/crear"
+                element={<FormularioServicio titulo="Crear servicio" />}
+              ></Route>
+              <Route
+                path="/administrador/editar"
+                element={<FormularioServicio titulo="Editar servicio" />}
+              ></Route>
+              <Route path="*" element={<Error404></Error404>}></Route>
+            </Routes>
+          </main>
+          <Footer></Footer>
+        </div>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 
