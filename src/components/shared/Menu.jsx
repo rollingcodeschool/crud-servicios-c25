@@ -45,7 +45,7 @@ const Menu = () => {
           {/* Menú Desktop */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8 capitalize">
-              <NavLink to="/" className={navLinkStyles}>
+              <NavLink to={"/"} className={navLinkStyles}>
                 Inicio
               </NavLink>
 
