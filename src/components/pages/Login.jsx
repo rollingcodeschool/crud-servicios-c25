@@ -1,20 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { useAppContext } from "../../context/AppContext";
 
-const Login = ({ setUsuarioLogueado }) => {
+const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navegacion = useNavigate();
+  //traer un dato del contexto
+  const { setUsuarioLogueado } = useAppContext();
 
   const onSubmit = (data) => {
     if (
       data.email === import.meta.env.VITE_EMAIL &&
       data.password === import.meta.env.VITE_PASSWORD
     ) {
-    
       Swal.fire({
         title: "Bienvenido Administrador",
         text: "Ingresando al sistema de gestion de servicios",
@@ -24,6 +27,10 @@ const Login = ({ setUsuarioLogueado }) => {
         confirmButtonColor: "#3b82f6",
         confirmButtonText: "Aceptar",
       });
+      //actualizar el state usuarioLogueado a true
+      setUsuarioLogueado(true)
+      //redireccionar al sitio del admin
+      navegacion("/administrador");
     } else {
       Swal.fire({
         title: "Ocurrio un error",
