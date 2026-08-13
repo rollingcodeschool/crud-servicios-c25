@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { LuMenu, LuX, LuCodeXml, LuLogOut } from "react-icons/lu";
 import { useAppContext } from "../../context/AppContext";
 
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { usuarioLogueado, setUsuarioLogueado } = useAppContext();
+  const navegacion = useNavigate()
 
-  const logout = () => {};
+  const logout = () => {
+    setUsuarioLogueado(false)
+    navegacion('/')
+  };
 
   const navLinkStyles = ({ isActive }) =>
     `block py-2 px-3 transition-colors duration-200 md:p-0 ${
@@ -55,7 +59,7 @@ const Menu = () => {
                   <NavLink to="/administrador" className={navLinkStyles}>
                     Administrador
                   </NavLink>
-                  <button className="flex items-center gap-2 bg-zinc-800 hover:bg-red-900/40 text-red-400 px-4 py-2 rounded-md text-sm font-medium transition-all border border-zinc-700 hover:border-red-500/50">logout</button>
+                  <button className="flex items-center gap-2 bg-zinc-800 hover:bg-red-900/40 text-red-400 px-4 py-2 rounded-md text-sm font-medium transition-all border border-zinc-700 hover:border-red-500/50" onClick={logout}>logout</button>
                 </>
               ) : (
                 <NavLink to="/login" className={navLinkStyles}>
@@ -96,7 +100,7 @@ const Menu = () => {
                   logout();
                   setIsMenuOpen(false);
                 }}
-                className="flex items-center gap-2 w-full text-left px-3 py-2 text-red-400 font-medium hover:bg-red-900/20 rounded-md transition-colors">logout</button>
+                className="flex items-center gap-2 w-full text-left px-3 py-2 text-red-400 font-medium hover:bg-red-900/20 rounded-md transition-colors" onClick={logout}>logout</button>
             </>
           ) : (
             <NavLink
