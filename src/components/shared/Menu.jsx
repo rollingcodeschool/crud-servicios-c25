@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router";
 import { LuMenu, LuX, LuCodeXml, LuLogOut } from "react-icons/lu";
+import { useAppContext } from "../../context/AppContext";
 
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { usuarioLogueado, setUsuarioLogueado } = useAppContext();
 
   const logout = () => {};
 
@@ -21,7 +23,7 @@ const Menu = () => {
           {/* Logo */}
           <div className="shrink-0 flex items-center gap-2 text-xl tracking-wider">
             <LuCodeXml className="text-blue-500 text-2xl" />
-            <Link to={'/'} className="font-bold" >
+            <Link to={"/"} className="font-bold">
               CODE
             </Link>
           </div>
@@ -48,14 +50,18 @@ const Menu = () => {
               <NavLink to={"/"} className={navLinkStyles}>
                 Inicio
               </NavLink>
-
-              <NavLink to="/administrador" className={navLinkStyles}>
-                Administrador
-              </NavLink>
-
-              <NavLink to="/login" className={navLinkStyles}>
-                Login
-              </NavLink>
+              {usuarioLogueado ? (
+                <>
+                  <NavLink to="/administrador" className={navLinkStyles}>
+                    Administrador
+                  </NavLink>
+                  <button className="flex items-center gap-2 bg-zinc-800 hover:bg-red-900/40 text-red-400 px-4 py-2 rounded-md text-sm font-medium transition-all border border-zinc-700 hover:border-red-500/50">logout</button>
+                </>
+              ) : (
+                <NavLink to="/login" className={navLinkStyles}>
+                  Login
+                </NavLink>
+              )}
             </div>
           </div>
         </div>
@@ -77,22 +83,30 @@ const Menu = () => {
           >
             Inicio
           </NavLink>
-
-          <NavLink
-            to="/administrador"
-            className={navLinkStyles}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Administrador
-          </NavLink>
-
-          <NavLink
-            to="/login"
-            className={navLinkStyles}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Login
-          </NavLink>
+          {usuarioLogueado ? (
+            <>
+              <NavLink
+                to="/administrador"
+                className={navLinkStyles}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Administrador
+              </NavLink>
+              <button   onClick={() => {
+                  logout();
+                  setIsMenuOpen(false);
+                }}
+                className="flex items-center gap-2 w-full text-left px-3 py-2 text-red-400 font-medium hover:bg-red-900/20 rounded-md transition-colors">logout</button>
+            </>
+          ) : (
+            <NavLink
+              to="/login"
+              className={navLinkStyles}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Login
+            </NavLink>
+          )}
         </div>
       </div>
     </nav>
