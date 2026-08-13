@@ -10,6 +10,7 @@ import FormularioServicio from "./components/pages/FormularioServicio";
 import { useState } from "react";
 import { useEffect } from "react";
 import { AppContext } from "./context/AppContext";
+import ProtectorRutas from "./components/routes/ProtectorRutas";
 
 function App() {
   const usuarioSessionStorage =
@@ -33,18 +34,21 @@ function App() {
                 path="/detalle-servicio"
                 element={<DetalleServicio></DetalleServicio>}
               ></Route>
-              <Route
-                path="/administrador"
-                element={<Administrador></Administrador>}
-              ></Route>
-              <Route
-                path="/administrador/crear"
-                element={<FormularioServicio titulo="Crear servicio" />}
-              ></Route>
-              <Route
-                path="/administrador/editar"
-                element={<FormularioServicio titulo="Editar servicio" />}
-              ></Route>
+              <Route path="/administrador" element={<ProtectorRutas />}>
+                <Route
+                  index
+                  element={<Administrador></Administrador>}
+                ></Route>
+                <Route
+                  path="crear"
+                  element={<FormularioServicio titulo="Crear servicio" />}
+                ></Route>
+                <Route
+                  path="editar"
+                  element={<FormularioServicio titulo="Editar servicio" />}
+                ></Route>
+              </Route>
+
               <Route path="*" element={<Error404></Error404>}></Route>
             </Routes>
           </main>
