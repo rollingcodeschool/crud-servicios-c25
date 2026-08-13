@@ -9,14 +9,31 @@ const Login = ({ setUsuarioLogueado }) => {
     formState: { errors },
   } = useForm();
 
-    const onSubmit = (data) => {
-    console.log(data);
-    console.log(import.meta.env.VITE_PASSWORD);
-    console.log(import.meta.env.VITE_EMAIL);
-    if(data.email === import.meta.env.VITE_EMAIL && data.password === import.meta.env.VITE_PASSWORD ){
-      console.log('aqui debo iniciar sesion')
-    }else{
-       console.log('error en las credenciales')
+  const onSubmit = (data) => {
+    if (
+      data.email === import.meta.env.VITE_EMAIL &&
+      data.password === import.meta.env.VITE_PASSWORD
+    ) {
+    
+      Swal.fire({
+        title: "Bienvenido Administrador",
+        text: "Ingresando al sistema de gestion de servicios",
+        icon: "success",
+        background: "#18181b",
+        color: "#f4f4f5",
+        confirmButtonColor: "#3b82f6",
+        confirmButtonText: "Aceptar",
+      });
+    } else {
+      Swal.fire({
+        title: "Ocurrio un error",
+        text: "Credenciales incorrectas",
+        icon: "error",
+        background: "#18181b",
+        color: "#f4f4f5",
+        confirmButtonColor: "#ef4444",
+        confirmButtonText: "Cancelar",
+      });
     }
   };
 
