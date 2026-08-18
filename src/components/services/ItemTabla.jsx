@@ -6,11 +6,13 @@ const ItemTabla = ({servicio, fila}) => {
   const { servicios, setServicios } = useAppContext();
 
   const borrarServicio = () => {
+    //agregar una ventana con swal donde pregunte si estoy segura de borrar ese servicio
     const serviciosFiltrados = servicios.filter(
       (itemServicio) => itemServicio.id !== servicio.id,
     );
     setServicios(serviciosFiltrados);
   };
+
   return (
     <tr className="border-b border-zinc-800 hover:bg-zinc-900/50 transition-colors">
       <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 font-mono">

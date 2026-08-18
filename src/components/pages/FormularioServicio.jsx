@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../context/AppContext";
-
 import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
 
 const FormularioServicio = ({ titulo }) => {
   const {
@@ -11,8 +11,22 @@ const FormularioServicio = ({ titulo }) => {
     formState: { errors },
     setValue,
   } = useForm();
+  const {id} = useParams()
+  const navegacion = useNavigate()
 
   const { servicios, setServicios } = useAppContext();
+
+  useEffect(()=>{
+    if(titulo.includes("Editar")){
+      const servicioBuscado = buscarServicio(id)
+      //dibuja en el formulario cada valor
+      setValue('nombreServicio', servicioBuscado.nombreServicio)
+      setValue('precio', servicioBuscado.precio)
+      setValue('imagen', servicioBuscado.imagen)
+      setValue('categoria', servicioBuscado.categoria)
+      setValue('descripcion', servicioBuscado.descripcion)
+    }
+  },[])
 
     const onSubmit = (data, e) => {
     console.log(data);
