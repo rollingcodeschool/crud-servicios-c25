@@ -17,9 +17,7 @@ function App() {
     JSON.parse(sessionStorage.getItem("usuarioKey")) || false;
   const [usuarioLogueado, setUsuarioLogueado] = useState(usuarioSessionStorage);
   //agregamos los servicios
-  const serviciosLocalStorage = JSON.parse(
-    localStorage.getItem("serviciosKey") || [],
-  );
+  const serviciosLocalStorage = JSON.parse(localStorage.getItem("serviciosKey")) || [];
   const [servicios, setServicios] = useState(serviciosLocalStorage);
 
   useEffect(() => {

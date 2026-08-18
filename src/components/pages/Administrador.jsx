@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { useAppContext } from "../../context/AppContext";
 import ItemTabla from "../services/ItemTabla";
 
@@ -16,9 +17,9 @@ const Administrador = () => {
             Gestiona el catálogo de servicios disponibles.
           </p>
         </div>
-        <a className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/20 active:scale-95 flex items-center gap-2">
+        <Link to={'/administrador/crear'} className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/20 active:scale-95 flex items-center gap-2">
           Crear Servicio
-        </a>
+        </Link>
       </div>
 
       {/* Contenedor de la Tabla con Scroll Horizontal para móviles */}
@@ -41,6 +42,7 @@ const Administrador = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800/50">
+          {/* condicion ? si se cumple hago esto : si no se cumple la condicion */}
             {servicios.length > 0 ? (
               servicios.map((servicio, indice) => (
                 <ItemTabla
