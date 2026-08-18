@@ -2,18 +2,19 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../context/AppContext";
 
+import { useEffect } from "react";
+
 const FormularioServicio = ({ titulo }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
   } = useForm();
 
   const { servicios, setServicios } = useAppContext();
 
-  const onSubmit = (data, e) => {
+    const onSubmit = (data, e) => {
     console.log(data);
     if (titulo.includes("Crear")) {
       crearServicio(data);
@@ -26,6 +27,17 @@ const FormularioServicio = ({ titulo }) => {
         confirmButtonColor: "#3b82f6",
       });
       e.target.reset();
+    } else {
+      editarServicio(id, data);
+      Swal.fire({
+        title: "Servicio editado",
+        text: `El servicio '${data.nombreServicio}' fue editado correctamente`,
+        icon: "success",
+        background: "#18181b",
+        color: "#f4f4f5",
+        confirmButtonColor: "#3b82f6",
+      });
+      navegacion("/administrador");
     }
   };
 
@@ -35,6 +47,20 @@ const FormularioServicio = ({ titulo }) => {
       id: crypto.randomUUID(),
     };
     setServicios([...servicios, servicioNuevo]);
+  };
+
+  const editarServicio = (idServicio, servicioEditar) => {
+    const serviciosEditados = servicios.map((itemServicio) => {
+      if (itemServicio.id === idServicio) {
+        return { ...itemServicio, ...servicioEditar };
+      }
+      return itemServicio;
+    });
+    setServicios(serviciosEditados);
+  };
+
+  const buscarServicio = (idServicio) => {
+    return servicios.find((item) => item.id === idServicio);
   };
 
   // Clase utilitaria para inputs consistentes

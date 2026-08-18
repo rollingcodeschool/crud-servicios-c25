@@ -24,12 +24,12 @@ const ItemTabla = ({servicio, fila}) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
         <div className="flex gap-3">
-          <a
+          <Link
             className="text-amber-500 hover:text-amber-400 transition-colors flex items-center gap-1"
-            // to={``}
+            to={`/administrador/editar/${servicio.id}`}
           >
             <i className="bi bi-pencil-square"></i> Editar
-          </a>
+          </Link>
           <button
             className="text-red-500 hover:text-red-400 transition-colors flex items-center gap-1"
             onClick={borrarServicio}
