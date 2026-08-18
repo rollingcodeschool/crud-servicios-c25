@@ -16,13 +16,24 @@ function App() {
   const usuarioSessionStorage =
     JSON.parse(sessionStorage.getItem("usuarioKey")) || false;
   const [usuarioLogueado, setUsuarioLogueado] = useState(usuarioSessionStorage);
+  //agregamos los servicios
+  const serviciosLocalStorage = JSON.parse(
+    localStorage.getItem("serviciosKey") || [],
+  );
+  const [servicios, setServicios] = useState(serviciosLocalStorage);
 
   useEffect(() => {
     sessionStorage.setItem("usuarioKey", JSON.stringify(usuarioLogueado));
   }, [usuarioLogueado]);
 
+  useEffect(() => {
+    localStorage.setItem("serviciosKey", JSON.stringify(servicios));
+  }, [servicios]);
+
   return (
-    <AppContext.Provider value={{ usuarioLogueado, setUsuarioLogueado }}>
+    <AppContext.Provider
+      value={{ usuarioLogueado, setUsuarioLogueado, servicios, setServicios }}
+    >
       <BrowserRouter>
         <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
           <Menu></Menu>
@@ -35,10 +46,7 @@ function App() {
                 element={<DetalleServicio></DetalleServicio>}
               ></Route>
               <Route path="/administrador" element={<ProtectorRutas />}>
-                <Route
-                  index
-                  element={<Administrador></Administrador>}
-                ></Route>
+                <Route index element={<Administrador></Administrador>}></Route>
                 <Route
                   path="crear"
                   element={<FormularioServicio titulo="Crear servicio" />}

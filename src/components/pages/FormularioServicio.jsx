@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { useAppContext } from "../../context/AppContext";
 
 const FormularioServicio = ({ titulo }) => {
   const {
@@ -10,8 +11,30 @@ const FormularioServicio = ({ titulo }) => {
     setValue,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const { servicios, setServicios } = useAppContext();
+
+  const onSubmit = (data, e) => {
     console.log(data);
+    if (titulo.includes("Crear")) {
+      crearServicio(data);
+      Swal.fire({
+        title: "Servicio creado",
+        text: `El servicio '${data.nombreServicio}' fue creado correctamente`,
+        icon: "success",
+        background: "#18181b",
+        color: "#f4f4f5",
+        confirmButtonColor: "#3b82f6",
+      });
+      e.target.reset();
+    }
+  };
+
+  const crearServicio = (dataServicio) => {
+    const servicioNuevo = {
+      ...dataServicio,
+      id: crypto.randomUUID(),
+    };
+    setServicios([...servicios, servicioNuevo]);
   };
 
   // Clase utilitaria para inputs consistentes
@@ -28,7 +51,10 @@ const FormularioServicio = ({ titulo }) => {
           {titulo}
         </h1>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={handleSubmit((data, e) => onSubmit(data, e))}
+          className="space-y-6"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Nombre del Servicio */}
             <div className="md:col-span-2">

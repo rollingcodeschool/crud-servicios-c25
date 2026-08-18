@@ -1,6 +1,9 @@
+import { useAppContext } from "../../context/AppContext";
 import ItemTabla from "../services/ItemTabla";
 
 const Administrador = () => {
+  const { servicios } = useAppContext();
+
   return (
     <section className="animate-fadeIn space-y-6">
       {/* Header de la sección */}
@@ -14,7 +17,6 @@ const Administrador = () => {
           </p>
         </div>
         <a className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-900/20 active:scale-95 flex items-center gap-2">
-         
           Crear Servicio
         </a>
       </div>
@@ -39,13 +41,24 @@ const Administrador = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800/50">
-            <ItemTabla />
-
-            {/* <tr>
-                 <td colSpan={4} className="px-6 py-12 text-center text-zinc-500 italic">
-                   No hay servicios registrados para administrar.
+            {servicios.length > 0 ? (
+              servicios.map((servicio, indice) => (
+                <ItemTabla
+                  key={servicio.id}
+                  servicio={servicio}
+                  fila={indice + 1}
+                />
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={4}
+                  className="px-6 py-12 text-center text-zinc-500 italic"
+                >
+                  No hay servicios registrados para administrar.
                 </td>
-               </tr> */}
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
