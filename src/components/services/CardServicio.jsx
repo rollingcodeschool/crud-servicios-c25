@@ -1,9 +1,6 @@
 import { Link } from "react-router";
 
-
-
-const CardServicio = ({servicio}) => {
-
+const CardServicio = ({ servicio }) => {
   return (
     <article className="group bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-blue-500/10 flex flex-col h-full">
       {/* Contenedor de Imagen */}
@@ -15,7 +12,7 @@ const CardServicio = ({servicio}) => {
         />
         <div className="absolute top-2 right-2">
           <span className="bg-zinc-950/80 backdrop-blur-sm text-blue-400 text-xs font-bold px-2 py-1 rounded border border-zinc-700 uppercase tracking-wider">
-           {servicio.categoria}
+            {servicio.categoria}
           </span>
         </div>
       </div>
@@ -25,17 +22,22 @@ const CardServicio = ({servicio}) => {
         <h3 className="text-xl font-bold text-zinc-100 mb-2 group-hover:text-blue-400 transition-colors">
           {servicio.nombreServicio}
         </h3>
-        
+
         <div className="pt-4 border-t border-zinc-800 mt-auto">
           <div className="flex items-center justify-between gap-2">
             <div>
-              <p className="text-xs text-zinc-500 uppercase font-semibold">Precio</p>
+              <p className="text-xs text-zinc-500 uppercase font-semibold">
+                Precio
+              </p>
               <p className="text-lg font-mono text-zinc-200">
-                 ${servicio.precio}
+                ${servicio.precio}
               </p>
             </div>
-            
-            <Link to={'/detalle-servicio'} className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-md shadow-blue-900/20 active:scale-95">
+
+            <Link
+              to={`/detalle-servicio/${servicio.id}`}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-md shadow-blue-900/20 active:scale-95"
+            >
               Ver detalle
             </Link>
           </div>

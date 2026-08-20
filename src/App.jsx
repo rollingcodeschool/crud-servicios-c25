@@ -40,7 +40,7 @@ function App() {
               <Route path="/" element={<Inicio></Inicio>}></Route>
               <Route path="/login" element={<Login></Login>}></Route>
               <Route
-                path="/detalle-servicio"
+                path="/detalle-servicio/:id"
                 element={<DetalleServicio></DetalleServicio>}
               ></Route>
               <Route path="/administrador" element={<ProtectorRutas />}>
